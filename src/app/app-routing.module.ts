@@ -9,6 +9,15 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login-page/login-page.module').then( m => m.LoginPagePageModule)
+  },
+  {
+    path: 'movies-page',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./movies-page/movies-page.module').then( m => m.MoviesPagePageModule)
+      }
+    ]
   }
 ];
 
