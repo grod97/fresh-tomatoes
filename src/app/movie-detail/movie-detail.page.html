@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/movies-page" ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{movie.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-img [src]="movie.poster_url"></ion-img>
+    </ion-card-content>
+    <ion-item>
+      <h4>Producer:</h4>
+    </ion-item>
+    <ion-item>
+      <p>{{ movie.studio }}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Summary:</h4>
+    </ion-item>
+    <ion-item class="ion-padding-top">
+      <p>{{ movie.sypnosis }}</p>
+    </ion-item>
+    <ion-grid *ngIf="canVote">
+      <ion-row>
+        <ion-col>
+          <ion-label position="floating">Review:</ion-label>
+          <ion-item>
+            <ion-label><h2>Rating</h2></ion-label>
+            <ion-select interface="popover" #rtn>
+              <ion-select-option value="1">⭐</ion-select-option>
+              <ion-select-option value="2">⭐⭐</ion-select-option>
+              <ion-select-option value="3">⭐⭐⭐</ion-select-option>
+              <ion-select-option value="4">⭐⭐⭐⭐</ion-select-option>
+              <ion-select-option value="5">⭐⭐⭐⭐⭐</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-label><h2>Comment</h2></ion-label>
+          <ion-textarea #review></ion-textarea>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-buttons>
+          <ion-col>
+            <ion-button color="primary" (click)="upvote(rtn, review)">Up Vote</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="danger" (click)="downvote(rtn, review)">Down Vote</ion-button>
+          </ion-col>
+        </ion-buttons>
+      </ion-row>
+    </ion-grid>
+    <ion-list *ngIf="reviews.length > 0" >
+      <ion-list-header>Reviews</ion-list-header>
+      <ion-item *ngFor="let review of movie.reviews">
+        <ion-label>{{review.note}}</ion-label>
+        <ion-label>{{review.name}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>
